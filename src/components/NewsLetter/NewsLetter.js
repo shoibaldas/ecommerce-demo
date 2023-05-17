@@ -32,7 +32,7 @@ const NewsLetter = () => {
               <MdConnectedTv className="text-3xl mt-[.2rem] text-gray-800 me-2"></MdConnectedTv>
             </div>
             <div>
-              <h2 className="text-3xl font-bold text-gray-800">Stay Tuned</h2>
+              <h2 className="text-3xl font-bold text-gray-800">Subscribe To Us</h2>
               <div>
                 <p className="w-full md:w-8/12 text-gray-800">
                   Thank you for visiting! We have exciting

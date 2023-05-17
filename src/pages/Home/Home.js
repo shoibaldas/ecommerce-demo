@@ -3,6 +3,7 @@ import Hero from "../../components/Hero/Hero";
 import Feature from "../../components/Feature/Feature";
 import Testimonial from "../../components/Testimonial/Testimonial";
 import NewsLetter from "../../components/NewsLetter/NewsLetter";
+import ReachUs from "../../components/ReachUs/ReachUs";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <Feature></Feature>
       <Testimonial></Testimonial>
       <NewsLetter></NewsLetter>
+      <ReachUs></ReachUs>
     </div>
   );
 };
