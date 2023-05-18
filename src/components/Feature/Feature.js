@@ -1,5 +1,5 @@
 import React from "react";
-import { FaShippingFast, FaCheck } from "react-icons/fa";
+import { FaShippingFast } from "react-icons/fa";
 import { GiReturnArrow } from "react-icons/gi";
 import { BsPatchCheckFill } from "react-icons/bs";
 import { TbCurrencyTaka } from "react-icons/tb";
