@@ -1,10 +1,62 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { GrGooglePlus } from "react-icons/gr";
+import Swal from "sweetalert2";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+
   const handleToggleShowPassword = () => setShowPassword(!showPassword);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    const errors = {};
+    if (!firstName.trim()) {
+      errors["firstName"] = "First name is required";
+    }
+    if (!lastName.trim()) {
+      errors["lastName"] = "Last name is required";
+    }
+    if (!email.trim()) {
+      errors["email"] = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors["email"] = "Email is invalid";
+    }
+    if (!password.trim()) {
+      errors["password"] = "Password is required";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill in all required fields correctly.",
+      });
+      return;
+    }
+    // Save the user credentials in local storage
+    localStorage.setItem("firstName", firstName);
+    localStorage.setItem("lastName", lastName);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+
+    setShowAlert(true);
+    // Clear form input values
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <div className="h-screen bg-fixed bg-center bg-cover custom-img">
       <div className="flex justify-center items-center absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[2]">
@@ -12,7 +64,7 @@ const Signup = () => {
           <h2 className="text-center text-2xl mb-0 md:mb-4 font-semibold">
             Sign Up
           </h2>
-          <form>
+          <form onSubmit={handleRegister}>
             <div className="flex flex-col">
               <div className="form-control flex flex-col w-full max-w-md">
                 <label className="label">
@@ -23,9 +75,14 @@ const Signup = () => {
                 <input
                   type="text"
                   name="firstName"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                   placeholder="First Name"
                   className="rounded-md py-1 px-2 border border-gray-500"
                 />
+                {errors.firstName && (
+                  <p className="text-red-500">{errors.firstName}</p>
+                )}
               </div>
               <div className="form-control flex flex-col w-full max-w-md">
                 <label className="label">
@@ -36,9 +93,14 @@ const Signup = () => {
                 <input
                   type="text"
                   name="lastName"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                   placeholder="Last Name"
                   className="rounded-md py-1 px-2 border border-gray-500"
                 />
+                {errors.lastName && (
+                  <p className="text-red-500">{errors.lastName}</p>
+                )}
               </div>
               <div className="form-control flex flex-col w-full max-w-md">
                 <label className="label">
@@ -49,9 +111,12 @@ const Signup = () => {
                 <input
                   type="email"
                   name="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email"
                   className="rounded-md py-1 px-2 border border-gray-500"
                 />
+                {errors.email && <p className="text-red-500">{errors.email}</p>}
               </div>
 
               <div className="relative form-control flex flex-col w-full max-w-md">
@@ -63,10 +128,12 @@ const Signup = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
                   className="rounded-md py-1 px-2 border border-gray-500"
                 />
-
+                {errors.password && <p className="text-red-500">{errors.password}</p>}
                 <div
                   className="absolute bottom-[6.5px] right-1 cursor-pointer"
                   onClick={handleToggleShowPassword}
@@ -109,27 +176,32 @@ const Signup = () => {
                   )}
                 </div>
               </div>
-              <div className="relative form-control flex flex-col w-full max-w-md">
-                <label className="label">
-                  <span className="label-text text-gray-800 font-semibold">
-                    Confirm Password <span className="text-red-500">*</span>
-                  </span>
-                </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  className="rounded-md py-1 px-2 border border-gray-500"
-                />
+            </div>
+            {showAlert && (
+            <div className="mt-4">
+              <div
+                className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                role="alert"
+              >
+                <strong className="font-bold">Success!</strong>
+                <span className="block sm:inline">
+                  {" "}
+                 Your account have been registered. Now, please 
+                 <Link to='/login'><span className="mx-1 underline font-semibold">login.</span></Link>
+                </span>
+                <span className="absolute top-0 bottom-0 right-0 px-4 py-4 cursor-pointer">
+                  <AiFillCloseCircle
+                    onClick={() => setShowAlert(false)}
+                  ></AiFillCloseCircle>
+                </span>
               </div>
             </div>
-
+          )}
             <input
               type="submit"
               value="Sign up"
               className="mt-4 cursor-pointer font-semibold text-white w-full bg-black p-2 rounded-md"
             />
-
             <div className="text-center">
               <label className="label-text text-gray-600 text-sm">
                 Already have an account?{" "}

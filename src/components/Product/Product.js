@@ -30,7 +30,7 @@ const Product = ({ product }) => {
                 <div className="mr-2">
                   <AiOutlineStar className="text-orange-600" />
                 </div>
-                <p className="text-gray-600">{product.rating.rate}</p>
+                <p className="text-gray-600">{rating.rate}</p>
               </div>
             </div>
             <div className="flex justify-center">
