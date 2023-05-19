@@ -20,7 +20,6 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  console.log(user);
   const handleNav = () => {
     setNav(!nav);
   };
@@ -68,7 +67,7 @@ const Navbar = () => {
                   <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
                     <ul className="py-2">
                       <li>
-                        <Link to="/myDashboard" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left">
+                        <Link to="/my-profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left">
                           My Account
                         </Link>
                       </li>
@@ -148,7 +147,8 @@ const Navbar = () => {
             >
               <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
             </li>
-            <li className="p-4 text-gray-400">
+            <li onClick={handleNav}
+              style={{ color: `${textColor}` }}  className="p-4 text-gray-400">
               <Link to="/login">Login</Link>
             </li>
           </ul>

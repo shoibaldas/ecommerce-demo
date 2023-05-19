@@ -4,6 +4,8 @@ import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
 import Signup from "../pages/Signup/Signup";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
+import UserDashboardLayout from "../layout/UserDashboardLayout";
+import Profile from "../pages/Profile/Profile";
 
 export const routes = createBrowserRouter([
   {
@@ -26,6 +28,16 @@ export const routes = createBrowserRouter([
         path:"/product/:id",
         element:<ProductDetails></ProductDetails>,
         loader : ({params}) => fetch (`https://fakestoreapi.com/products/${params.id}`)
+      },
+      {
+        path:"/my-profile",
+        element: <UserDashboardLayout></UserDashboardLayout>,
+        children:[
+          {
+            path:"/my-profile",
+            element:<Profile></Profile>
+          }
+        ]
       }
     ],
   },
