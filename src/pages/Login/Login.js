@@ -1,17 +1,65 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate,  } from "react-router-dom";
 import { GrGooglePlus } from "react-icons/gr";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleToggleShowPassword = () => setShowPassword(!showPassword);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const errors = {};
+
+    if (!email.trim()) {
+      errors["email"] = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors["email"] = "Email is invalid";
+    }
+    if (!password.trim()) {
+      errors["password"] = "Password is required";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please fill in all required fields correctly.",
+      });
+      return;
+    }
+    // Retrieve user credentials from local storage
+    const storedUsername = localStorage.getItem("email");
+    const storedPassword = localStorage.getItem("password");
+
+    if (email === storedUsername && password === storedPassword) {
+      // Successful login
+      setErrors("");
+      setErrorMessage("");
+      Swal.fire({
+        icon: "success",
+        title: "Login Successfully!",
+      });
+      navigate("/");
+    } else {
+      setErrorMessage("Invalid username or password");
+    }
+  };
+
   return (
     <div className="h-screen bg-fixed bg-center bg-cover custom-img">
       <div className="flex justify-center items-center absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[2]">
         <div className="w-80 p-7 backdrop-blur-3xl bg-white/80 rounded">
           <h2 className="text-center text-2xl font-semibold">Login</h2>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="form-control flex flex-col w-full max-w-xs">
               <label className="label">
                 <span className="label-text text-gray-800 font-semibold">
@@ -21,9 +69,12 @@ const Login = () => {
               <input
                 type="email"
                 name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email"
                 className="rounded-md mt-2 py-1 px-2 border border-gray-500"
               />
+              {errors.email && <p className="text-red-500">{errors.email}</p>}
             </div>
             <div className="relative form-control mt-2 flex flex-col w-full max-w-xs">
               <label className="label">
@@ -34,10 +85,14 @@ const Login = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 className="mt-2 rounded-md py-1 px-2 border border-gray-500"
               />
-
+              {errors.password && (
+                <p className="text-red-500">{errors.password}</p>
+              )}
               <div
                 className="absolute bottom-[6.5px] right-1 cursor-pointer"
                 onClick={handleToggleShowPassword}
@@ -83,7 +138,7 @@ const Login = () => {
             <label className="label-text text-sm text-gray-800 cursor-pointer underline underline-offset-1">
               Forget Password?
             </label>
-
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
             <input
               type="submit"
               value="Login"
