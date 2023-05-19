@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { GrGooglePlus } from "react-icons/gr";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -92,12 +93,24 @@ const Login = () => {
               <label className="label-text text-gray-600 text-sm">
                 Don't have an account?{" "}
                 <Link
-                  href="/signup"
+                  to="/signup"
                   className="cursor-pointer font-semibold text-gray-700 underline"
                 >
                   Create Account
                 </Link>
               </label>
+            </div>
+            <div className="text-center mt-4">
+              <div className="flex items-center space-x-3">
+                <div className="flex-1 h-px sm:w-16 dark:bg-sky-800"></div>
+                <h4 className="label-text-alt text-sm font-semibold text-gray-500">
+                  or Sign in with
+                </h4>
+                <div className="flex-1 h-px sm:w-16 dark:bg-sky-800"></div>
+              </div>
+              <div title="Google" className="mt-2 flex justify-center">
+                <GrGooglePlus className="w-8 h-8 text-orange-700 mr-3 cursor-pointer p-1 rounded-full"></GrGooglePlus>
+              </div>
             </div>
           </form>
         </div>
