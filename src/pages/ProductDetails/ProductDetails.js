@@ -4,7 +4,6 @@ import { useLoaderData } from "react-router-dom";
 
 const ProductDetails = () => {
     const product = useLoaderData();
-    console.log(product)
     //const [image, title, category, price, rating, description] = product;
   return (
     <div className="h-screen mt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl p-12">

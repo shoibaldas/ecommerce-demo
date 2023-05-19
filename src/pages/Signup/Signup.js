@@ -44,10 +44,15 @@ const Signup = () => {
       return;
     }
     // Save the user credentials in local storage
-    localStorage.setItem("firstName", firstName);
-    localStorage.setItem("lastName", lastName);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      })
+    );
 
     setShowAlert(true);
     // Clear form input values
@@ -133,7 +138,9 @@ const Signup = () => {
                   placeholder="Password"
                   className="rounded-md py-1 px-2 border border-gray-500"
                 />
-                {errors.password && <p className="text-red-500">{errors.password}</p>}
+                {errors.password && (
+                  <p className="text-red-500">{errors.password}</p>
+                )}
                 <div
                   className="absolute bottom-[6.5px] right-1 cursor-pointer"
                   onClick={handleToggleShowPassword}
@@ -178,25 +185,29 @@ const Signup = () => {
               </div>
             </div>
             {showAlert && (
-            <div className="mt-4">
-              <div
-                className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
-                role="alert"
-              >
-                <strong className="font-bold">Success!</strong>
-                <span className="block sm:inline">
-                  {" "}
-                 Your account have been registered. Now, please 
-                 <Link to='/login'><span className="mx-1 underline font-semibold">login.</span></Link>
-                </span>
-                <span className="absolute top-0 bottom-0 right-0 px-4 py-4 cursor-pointer">
-                  <AiFillCloseCircle
-                    onClick={() => setShowAlert(false)}
-                  ></AiFillCloseCircle>
-                </span>
+              <div className="mt-4">
+                <div
+                  className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative"
+                  role="alert"
+                >
+                  <strong className="font-bold">Success!</strong>
+                  <span className="block sm:inline">
+                    {" "}
+                    Your account have been registered. Now, please
+                    <Link to="/login">
+                      <span className="mx-1 underline font-semibold">
+                        login.
+                      </span>
+                    </Link>
+                  </span>
+                  <span className="absolute top-0 bottom-0 right-0 px-4 py-4 cursor-pointer">
+                    <AiFillCloseCircle
+                      onClick={() => setShowAlert(false)}
+                    ></AiFillCloseCircle>
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
             <input
               type="submit"
               value="Sign up"

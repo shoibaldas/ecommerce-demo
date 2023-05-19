@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate,  } from "react-router-dom";
 import { GrGooglePlus } from "react-icons/gr";
 import Swal from "sweetalert2";
+import { UserContext } from "../../hooks/AuthProvider/AuthProvider";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
+  const {signIn, setSignIn} = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleToggleShowPassword = () => setShowPassword(!showPassword);
@@ -37,10 +39,11 @@ const Login = () => {
       return;
     }
     // Retrieve user credentials from local storage
-    const storedUsername = localStorage.getItem("email");
-    const storedPassword = localStorage.getItem("password");
+    const storedCredentials = JSON.parse(localStorage.getItem('user'));
+    const storedEmail = storedCredentials.email;
+    const storedPassword = storedCredentials.password;
 
-    if (email === storedUsername && password === storedPassword) {
+    if (email === storedEmail && password === storedPassword) {
       // Successful login
       setErrors("");
       setErrorMessage("");
@@ -48,6 +51,7 @@ const Login = () => {
         icon: "success",
         title: "Login Successfully!",
       });
+      setSignIn(!signIn);
       navigate("/");
     } else {
       setErrorMessage("Invalid username or password");

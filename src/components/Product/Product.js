@@ -5,7 +5,6 @@ import { AiOutlineStar } from "react-icons/ai";
 
 const Product = ({ product }) => {
   const { title, price, image, rating } = product;
-  console.log(product);
   return (
     <div>
       <div
