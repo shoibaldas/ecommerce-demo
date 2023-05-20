@@ -6,7 +6,7 @@ const ProductDetails = () => {
     const product = useLoaderData();
     //const [image, title, category, price, rating, description] = product;
   return (
-    <div className="h-screen mt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl p-12">
+    <div className="h-screen my-20  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl p-12">
       <div className="flex flex-col lg:flex-row">
         <div className="lg:w-1/2">
           <img className="w-full h-auto object-contain lg:max-h-96 " src={product.image} alt={product.title} />
