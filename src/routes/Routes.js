@@ -6,6 +6,7 @@ import Signup from "../pages/Signup/Signup";
 import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
 import Profile from "../pages/Profile/Profile";
+import AllProduct from "../pages/AllProduct/AllProduct";
 
 export const routes = createBrowserRouter([
   {
@@ -17,28 +18,33 @@ export const routes = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path:"/login",
-        element: <Login></Login>
+        path: "/login",
+        element: <Login></Login>,
       },
       {
-        path:"/signup",
-        element:<Signup></Signup>
+        path: "/signup",
+        element: <Signup></Signup>,
       },
       {
-        path:"/product/:id",
-        element:<ProductDetails></ProductDetails>,
-        loader : ({params}) => fetch (`https://fakestoreapi.com/products/${params.id}`)
+        path: "/product/:id",
+        element: <ProductDetails></ProductDetails>,
+        loader: ({ params }) =>
+          fetch(`https://fakestoreapi.com/products/${params.id}`),
       },
       {
-        path:"/my-profile",
+        path: "/products",
+        element: <AllProduct></AllProduct>,
+      },
+      {
+        path: "/my-profile",
         element: <UserDashboardLayout></UserDashboardLayout>,
-        children:[
+        children: [
           {
-            path:"/my-profile",
-            element:<Profile></Profile>
-          }
-        ]
-      }
+            path: "/my-profile",
+            element: <Profile></Profile>,
+          },
+        ],
+      },
     ],
   },
 ]);

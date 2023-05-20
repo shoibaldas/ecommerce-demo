@@ -46,7 +46,7 @@ const FeatureProducts = () => {
       </div>
       <div className="grid gap-6 row-gap-5 mb-8 lg:grid-cols-4 sm:row-gap-6 sm:grid-cols-2">
         {shuffledProducts.slice(0, 8).map((product) => (
-          <Product key={product.id} product={product}></Product>
+          <Product key={product.id} products={product}></Product>
         ))}
       </div>
       <div className="text-center text-gray-800">
