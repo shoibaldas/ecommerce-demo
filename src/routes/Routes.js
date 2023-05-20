@@ -7,6 +7,7 @@ import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import UserDashboardLayout from "../layout/UserDashboardLayout";
 import Profile from "../pages/Profile/Profile";
 import AllProduct from "../pages/AllProduct/AllProduct";
+import ShoppingCartDetails from "../pages/ShoppingCartDetails/ShoppingCartDetails";
 
 export const routes = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const routes = createBrowserRouter([
       {
         path: "/products",
         element: <AllProduct></AllProduct>,
+      },
+      {
+        path:"/mycart",
+        element:<ShoppingCartDetails></ShoppingCartDetails>
       },
       {
         path: "/my-profile",

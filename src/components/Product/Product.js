@@ -5,6 +5,22 @@ import { AiOutlineStar } from "react-icons/ai";
 
 const Product = ({ products }) => {
   const { title, price, image, rating } = products;
+
+  const addToCart = () => {
+    const existingCart = localStorage.getItem("myCart");
+
+    if (existingCart) {
+      // If cart items exist then add new item
+      const cartItems = JSON.parse(existingCart);
+      cartItems.push(products);
+      localStorage.setItem("myCart", JSON.stringify(cartItems));
+    } else {
+      // If don't exist, create new item
+      const cartItems = [products];
+      localStorage.setItem("myCart", JSON.stringify(cartItems));
+    }
+  };
+  
   return (
     <div>
       <div
@@ -33,13 +49,13 @@ const Product = ({ products }) => {
               </div>
             </div>
             <div className="flex justify-center">
-              <Link
+              <button
                 title="Add To Cart"
-                to={`/booking/product/${products.id}`}
+                onClick={addToCart}
                 className="absolute right-2 top-2 bg-gray-600 hover:bg-black text-white p-3 rounded-full"
               >
                 <BiShoppingBag className="w-6"></BiShoppingBag>
-              </Link>
+              </button>
             </div>
           </div>
         </div>

@@ -27,8 +27,8 @@ const Navbar = () => {
   const handleLogout = () => {
     setSignIn(!signIn);
     logout();
-    navigate('/');
-};
+    navigate("/");
+  };
 
   return (
     <div
@@ -52,7 +52,9 @@ const Navbar = () => {
             <Link to="/about">About</Link>
           </li>
           <li className="p-4 flex items-center">
-            <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
+            <Link to="/mycart">
+              <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
+            </Link>
           </li>
           {user && user ? (
             <li className="p-4">
@@ -61,18 +63,24 @@ const Navbar = () => {
                   className="flex items-center focus:outline-none"
                   onClick={toggleDropdown}
                 >
-                <FaUserCircle className="w-6 h-6"></FaUserCircle>
+                  <FaUserCircle className="w-6 h-6"></FaUserCircle>
                 </button>
                 {isOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
                     <ul className="py-2">
                       <li>
-                        <Link to="/my-profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left">
+                        <Link
+                          to="/my-profile"
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
+                        >
                           My Account
                         </Link>
                       </li>
                       <li>
-                        <button onClick={handleLogout} className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left">
+                        <button
+                          onClick={handleLogout}
+                          className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
+                        >
                           Logout
                         </button>
                       </li>
@@ -147,8 +155,11 @@ const Navbar = () => {
             >
               <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
             </li>
-            <li onClick={handleNav}
-              style={{ color: `${textColor}` }}  className="p-4 text-gray-400">
+            <li
+              onClick={handleNav}
+              style={{ color: `${textColor}` }}
+              className="p-4 text-gray-400"
+            >
               <Link to="/login">Login</Link>
             </li>
           </ul>
