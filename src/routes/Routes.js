@@ -8,6 +8,7 @@ import UserDashboardLayout from "../layout/UserDashboardLayout";
 import Profile from "../pages/Profile/Profile";
 import AllProduct from "../pages/AllProduct/AllProduct";
 import ShoppingCartDetails from "../pages/ShoppingCartDetails/ShoppingCartDetails";
+import OrderHistory from "../pages/OrderHistory/OrderHistory";
 
 export const routes = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const routes = createBrowserRouter([
             path: "/my-profile",
             element: <Profile></Profile>,
           },
+          {
+            path:"/my-profile/order-history",
+            element:<OrderHistory></OrderHistory>
+          }
         ],
       },
     ],

@@ -21,12 +21,12 @@ const UserDashboardLayout = () => {
           <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
           <ul>
             <li className="mb-2">
-              <Link href="#" className="text-blue-300 hover:text-blue-200">
+              <Link to="/my-profile" className="text-blue-300 hover:text-blue-200">
                 My Info
               </Link>
             </li>
             <li className="mb-2">
-              <Link href="#" className="text-blue-300 hover:text-blue-200">
+              <Link to="/my-profile/order-history" className="text-blue-300 hover:text-blue-200">
                 Order History
               </Link>
             </li>
