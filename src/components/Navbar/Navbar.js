@@ -8,11 +8,13 @@ import {
 import { FaUserCircle } from "react-icons/fa";
 import useNavbarBackground from "../../hooks/NavbarBackground/useNavbarBackground";
 import { UserContext } from "../../hooks/AuthProvider/AuthProvider";
+import { Cart } from "../../hooks/CartContext/CartContext";
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const { color, textColor } = useNavbarBackground();
   const { user, signIn, setSignIn, logout } = useContext(UserContext);
+  const { shoppingCart } = useContext(Cart);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -51,9 +53,14 @@ const Navbar = () => {
           <li className="p-4">
             <Link to="/about">About</Link>
           </li>
-          <li className="p-4 flex items-center">
+          <li className="relative p-4 flex items-center">
             <Link to="/mycart">
               <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
+              {shoppingCart.length > 0 && (
+                <span className="absolute right-1 top-2 ml-1 text-red-700 p-1 text-sm font-semibold">
+                  {shoppingCart.length}
+                </span>
+              )}
             </Link>
           </li>
           {user && user ? (
@@ -153,15 +160,63 @@ const Navbar = () => {
               style={{ color: `${textColor}` }}
               className="p-4 flex items-center justify-center text-gray-400"
             >
-              <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
+              <Link to="/mycart" className="relative">
+                <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
+                {shoppingCart.length > 0 && (
+                  <span className="absolute -right-2 -top-2 ml-1 text-red-700 text-sm font-semibold">
+                    {shoppingCart.length}
+                  </span>
+                )}
+              </Link>
             </li>
-            <li
-              onClick={handleNav}
-              style={{ color: `${textColor}` }}
-              className="p-4 text-gray-400"
-            >
-              <Link to="/login">Login</Link>
-            </li>
+            {user && user ? (
+              <li
+                style={{ color: `${textColor}` }}
+                className="p-4 flex items-center justify-center text-gray-400"
+              >
+                <div className="relative">
+                  <button
+                    className="flex items-center focus:outline-none"
+                    onClick={toggleDropdown}
+                  >
+                    <FaUserCircle className="w-6 h-6"></FaUserCircle>
+                  </button>
+                  {isOpen && (
+                    <div className="absolute right-0 mt-2 w-40 bg-white rounded shadow-lg">
+                      <ul className="py-2">
+                        <li>
+                          <Link
+                            to="/my-profile"
+                            className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
+                          >
+                            My Account
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            onClick={handleLogout}
+                            className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </li>
+            ) : (
+              <li>
+                <li className="p-4">
+                  <Link
+                    to="/login"
+                    className="border-2 border-teal-600 rounded px-4 py-2 hover:text-white hover:bg-teal-600 transition duration-300 ease-in"
+                  >
+                    Login
+                  </Link>
+                </li>
+              </li>
+            )}
           </ul>
         </div>
       </div>

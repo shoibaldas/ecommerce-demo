@@ -8,40 +8,9 @@ import Loader from "../../components/Loader/Loader";
 const ProductDetails = () => {
   const products = useLoaderData();
   const { loading, setLoading } = useContext(Cart);
-
-  // const addToCart = () => {
-  //   const existingCart = localStorage.getItem("myCart");
-  //   const newItem = {
-  //     product: products,
-  //     quantity: 1,
-  //   };
-
-  //   if (existingCart) {
-  //     const cartItems = JSON.parse(existingCart);
-
-  //     const existingItemIndex = cartItems.findIndex(
-  //       (item) => item.product.id === newItem.product.id
-  //     );
-
-  //     if (existingItemIndex !== -1) {
-  //       cartItems[existingItemIndex].quantity += 1;
-  //     } else {
-  //       cartItems.push(newItem);
-  //     }
-
-  //     localStorage.setItem("myCart", JSON.stringify(cartItems));
-  //   } else {
-  //     const cartItems = [newItem];
-  //     localStorage.setItem("myCart", JSON.stringify(cartItems));
-  //   }
-
-  //   Swal.fire({
-  //     icon: "success",
-  //     title: "Your product added to cart successfully!",
-  //   });
-  //   setLoading(true);
-  // };
   const [quantity, setQuantity] = useState(1);
+
+  //add product to cart
   const addToCart = () => {
     const existingCart = localStorage.getItem("myCart");
     const newItem = {
