@@ -30,11 +30,11 @@ const Hero = ({ heading, message }) => {
   const slider1Class = "slide";
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover custom-img">
+    <div className="flex flex-col-reverse md:flex-row items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover custom-img">
       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black/70 z-[2]" />
-      <div className="w-9/12 p-5 md:mt-0 text-white z-[2] max-w-2xl">
-        <h2 className="text-5xl font-bold">{heading}</h2>
-        <p className="py-5 text-xl ">{message}</p>
+      <div className="w-full md:w-9/12 p-5 md:mt-0 text-white z-[2] max-w-2xl">
+        <h2 className="text-2xl md:text-5xl font-bold">{heading}</h2>
+        <p className="py-5 text-sm md:text-xl ">{message}</p>
         <div className="mt-8">
           <Link
             to="/products"
@@ -44,13 +44,9 @@ const Hero = ({ heading, message }) => {
           </Link>
         </div>
       </div>
-      <div className="hidden w-3/12 md:flex justify-center items-center z-[2]">
+      <div className="w-11/12 md:w-3/12 flex justify-center items-center z-[2]">
         <Swiper
-          autoplay={{ delay: 1500, disableOnInteractio: false }}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
+          autoplay={{ delay: 1500, disableOnInteractio: false }}        
           breakpoints={{
             768: {
               slidesPerView: 1,

@@ -5,6 +5,7 @@ import { Cart } from "../../hooks/CartContext/CartContext";
 import Loader from "../../components/Loader/Loader";
 import { UserContext } from "../../hooks/AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import ScrollToTop from "../../hooks/ScrollToTop/ScrollToTop";
 
 const ShoppingCartDetails = () => {
   const { loading, shoppingCart, setLoading, setShoppingCart } =
@@ -80,6 +81,7 @@ const ShoppingCartDetails = () => {
       order_id: generateUniqueId(), // Generate a unique order ID
       items: shoppingCart.map((item) => ({
         title: item.product.title,
+        category: item.product.category,
         quantity: item.quantity,
         subtotal: item.quantity * item.product.price,
       })),
@@ -117,6 +119,7 @@ const ShoppingCartDetails = () => {
 
   return (
     <div className="h-screen p-8 my-28">
+      <ScrollToTop></ScrollToTop>
       <div className="border overflow-x-auto bg-white border-gray-400 shadow-lg rounded-lg container mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl p-12">
         <table className="table-auto w-full">
           <thead>

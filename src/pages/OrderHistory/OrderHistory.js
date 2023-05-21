@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../hooks/AuthProvider/AuthProvider";
 import { MdSpeakerNotes } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
 
 const OrderHistory = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useContext(UserContext); // Get the user data from the UserContext
   const [orders, setOrders] = useState([]);
+  const [categoryExpenses, setCategoryExpenses] = useState({});
 
   useEffect(() => {
     const userEmail = user.email; // Get the user email from the user context
@@ -20,6 +22,21 @@ const OrderHistory = () => {
       setOrders(filteredOrders);
     }
   }, [user]);
+
+  useEffect(() => {
+    // Calculate category-wise expenses
+    const expenses = {};
+    orders.forEach((order) => {
+      order.items.forEach((item) => {
+        if (item.category in expenses) {
+          expenses[item.category] += item.subtotal;
+        } else {
+          expenses[item.category] = item.subtotal;
+        }
+      });
+    });
+    setCategoryExpenses(expenses);
+  }, [orders]);
 
   const handleItemClick = (orderId) => {
     const selected = orders.find((order) => order.order_id === orderId);
@@ -52,9 +69,26 @@ const OrderHistory = () => {
           <p>No orders found.</p>
         )}
       </div>
+      <div className="mt-4">
+        <h3 className="text-lg font-bold mb-2">Category wise expenses:</h3>
+        {Object.keys(categoryExpenses).length > 0 ? (
+          <ul>
+            {Object.entries(categoryExpenses).map(([category, expense]) => (
+              <li key={category} className="flex items-center">
+                <FaCheckCircle className="text-green-600"></FaCheckCircle>
+                <p className="mx-2" style={{"text-transform":"capitalize"}}>
+                  {category}: ${expense.toFixed(2)}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No category-wise expenses yet.</p>
+        )}
+      </div>
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 p-3">
-          <div className="bg-white p-6 rounded shadow-md">
+          <div className="bg-white p-6 rounded shadow-md h-96 overflow-x-scroll">
             {selectedOrder && (
               <div>
                 <h2 className="text-xl font-bold mb-2">

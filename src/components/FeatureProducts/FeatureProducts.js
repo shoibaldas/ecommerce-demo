@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import Product from "../Product/Product";
 import Loader from "../Loader/Loader";
 import axios from "axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 const FeatureProducts = () => {
   const [loading, setLoading] = useState(true);

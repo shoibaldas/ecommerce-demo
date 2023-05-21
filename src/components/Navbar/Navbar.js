@@ -50,9 +50,6 @@ const Navbar = () => {
           <li className="p-4">
             <Link to="/products">Products</Link>
           </li>
-          <li className="p-4">
-            <Link to="/about">About</Link>
-          </li>
           <li className="relative p-4 flex items-center">
             <Link to="/mycart">
               <AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
@@ -148,13 +145,6 @@ const Navbar = () => {
               className="p-4 text-gray-400"
             >
               <Link to="/products">Products</Link>
-            </li>
-            <li
-              onClick={handleNav}
-              style={{ color: `${textColor}` }}
-              className="p-4 text-gray-400"
-            >
-              <Link to="/about">About</Link>
             </li>
             <li
               style={{ color: `${textColor}` }}

@@ -4,6 +4,10 @@ import { GiReturnArrow } from "react-icons/gi";
 import { BsPatchCheckFill } from "react-icons/bs";
 import { TbCurrencyTaka } from "react-icons/tb";
 import { RiCustomerService2Line } from "react-icons/ri";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 const Feature = () => {
   return (
@@ -14,13 +18,18 @@ const Feature = () => {
             Why Choose Us
           </h2>
           <p className="max-w-3xl mx-auto text-lg text-gray-600 leading-8">
-          We take pride in delivering an exceptional shopping experience that sets us apart from the rest.
+            We take pride in delivering an exceptional shopping experience that
+            sets us apart from the rest.
           </p>
         </div>
 
         <div className="mt-10">
           <div className="flex flex-col md:flex-row justify-center items-center">
-            <div data-aos="fade-up" data-aos-duration="1000" className="lg:w-1/4 px-4 mb-8">
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              className="lg:w-1/4 px-4 mb-8"
+            >
               <div className="flex items-center flex-col text-center">
                 <div className="w-16 h-16 flex items-center justify-center rounded-full bg-green-100 mb-2">
                   <FaShippingFast className="text-green-500 text-3xl" />
@@ -30,15 +39,24 @@ const Feature = () => {
                     Free Shipping
                   </h3>
                   <div className="mt-2 text-sm text-gray-600 flex items-center ml-2">
-                    <div><p className="mr-1">On all orders over</p></div>
+                    <div>
+                      <p className="mr-1">On all orders over</p>
+                    </div>
                     <TbCurrencyTaka></TbCurrencyTaka>
-                    <div><p>2,000</p></div>
+                    <div>
+                      <p>2,000</p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000" className="lg:w-1/4 px-4 mb-8">
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="500"
+              className="lg:w-1/4 px-4 mb-8"
+            >
               <div className="flex items-center flex-col text-center">
                 <div className="w-16 h-16 flex items-center justify-center rounded-full bg-sky-100 mb-2">
                   <GiReturnArrow className="text-sky-500 text-3xl" />
@@ -54,7 +72,12 @@ const Feature = () => {
               </div>
             </div>
 
-            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="2000" className="lg:w-1/4 px-4 mb-8">
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="1000"
+              className="lg:w-1/4 px-4 mb-8"
+            >
               <div className="flex items-center flex-col text-center">
                 <div className="icon-bg w-16 h-16 flex items-center justify-center rounded-full bg-blue-100 mb-2">
                   <BsPatchCheckFill className="text-blue-500 text-3xl" />
@@ -70,7 +93,12 @@ const Feature = () => {
               </div>
             </div>
 
-            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="3000" className="lg:w-1/4 px-4 mb-8">
+            <div
+              data-aos="fade-up"
+              data-aos-duration="1000"
+              data-aos-delay="1500"
+              className="lg:w-1/4 px-4 mb-8"
+            >
               <div className="flex items-center flex-col text-center">
                 <div className="icon-bg w-16 h-16 flex items-center justify-center rounded-full bg-purple-100 mb-2">
                   <RiCustomerService2Line className="text-purple-500 text-3xl" />
@@ -80,7 +108,7 @@ const Feature = () => {
                     Customer Service
                   </h3>
                   <p className="mt-2 text-sm text-gray-600">
-                  Exceptional customer service guaranteed
+                    Exceptional customer service guaranteed
                   </p>
                 </div>
               </div>

@@ -9,6 +9,7 @@ const Product = ({ products }) => {
   const { title, price, image, rating } = products;
   const { setLoading } = useContext(Cart);
 
+  //add product to cart
   const addToCart = () => {
     const existingCart = localStorage.getItem("myCart");
     const newItem = {

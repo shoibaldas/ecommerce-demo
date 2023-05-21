@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import { Cart } from "../../hooks/CartContext/CartContext";
 import Loader from "../../components/Loader/Loader";
+import ScrollToTop from "../../hooks/ScrollToTop/ScrollToTop";
 
 const ProductDetails = () => {
   const products = useLoaderData();
@@ -58,6 +59,7 @@ const ProductDetails = () => {
 
   return (
     <div className="h-screen my-20  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl p-12">
+      <ScrollToTop></ScrollToTop>
       <div className="flex flex-col lg:flex-row">
         <div className="lg:w-1/2">
           <img
