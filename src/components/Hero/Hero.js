@@ -13,21 +13,16 @@ SwiperCore.use([Pagination, Navigation, Autoplay]);
 const bannerItem = [
   {
     image: img1,
-    id: 1,
-    prev: 3,
-    next: 2,
+    id: 1
   },
   {
     image: img2,
-    id: 2,
-    prev: 1,
-    next: 3,
+    id: 2
   },
   {
     image: img3,
-    id: 3,
-    prev: 2,
-    next: 1,
+    id: 3
+
   },
 ];
 
@@ -67,7 +62,7 @@ const Hero = ({ heading, message }) => {
             <SwiperSlide key={slide.id}>
               <img
                 src={slide.image}
-                className="w-96 h-96 object-cover"
+                className="w-96 h-96 rounded-md object-cover"
                 alt=""
               />
             </SwiperSlide>

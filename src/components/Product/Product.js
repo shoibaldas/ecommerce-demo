@@ -1,49 +1,47 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { BiShoppingBag } from "react-icons/bi";
 import { AiOutlineStar } from "react-icons/ai";
 import Swal from "sweetalert2";
+import { Cart } from "../../hooks/CartContext/CartContext";
 
 const Product = ({ products }) => {
   const { title, price, image, rating } = products;
+  const { setLoading } = useContext(Cart);
 
   const addToCart = () => {
     const existingCart = localStorage.getItem("myCart");
+    const newItem = {
+      product: products,
+      quantity: 1,
+    };
 
     if (existingCart) {
-      // If cart items exist then add a new item with a quantity of 1
       const cartItems = JSON.parse(existingCart);
-      const newItem = {
-        cart_id: generateUniqueId(),
-        product: products,
-        quantity: 1,
-      };
-      cartItems.push(newItem);
+
+      const existingItemIndex = cartItems.findIndex(
+        (item) => item.product.id === newItem.product.id
+      );
+
+      if (existingItemIndex !== -1) {
+        cartItems[existingItemIndex].quantity += 1;
+      } else {
+        cartItems.push(newItem);
+      }
+
       localStorage.setItem("myCart", JSON.stringify(cartItems));
-      Swal.fire({
-        icon: "success",
-        title: "Your product added to cart Successfully!",
-      });
     } else {
-      const cartItems = [
-        {
-          cart_id: generateUniqueId(),
-          product: products,
-          quantity: 1,
-        },
-      ];
+      const cartItems = [newItem];
       localStorage.setItem("myCart", JSON.stringify(cartItems));
-      Swal.fire({
-        icon: "success",
-        title: "Your product added to cart Successfully!",
-      });
     }
+
+    Swal.fire({
+      icon: "success",
+      title: "Your product added to cart successfully!",
+    });
+    setLoading(true);
   };
 
-  //generating id with time stamp
-  const generateUniqueId = () => {
-    return Date.now().toString();
-  };
 
   return (
     <div>

@@ -12,7 +12,7 @@ const CartContext = ({ children }) => {
       setShoppingCart(JSON.parse(cartData));
     }
     setLoading(false);
-  }, [shoppingCart]);
+  }, [loading]);
 
   return (
     <Cart.Provider
@@ -20,6 +20,7 @@ const CartContext = ({ children }) => {
         shoppingCart,
         loading,
         setLoading,
+        setShoppingCart
       }}
     >
       {children}
