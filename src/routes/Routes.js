@@ -10,6 +10,7 @@ import AllProduct from "../pages/AllProduct/AllProduct";
 import ShoppingCartDetails from "../pages/ShoppingCartDetails/ShoppingCartDetails";
 import OrderHistory from "../pages/OrderHistory/OrderHistory";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import PrivateRoutes from "./PrivateRoutes";
 
 export const routes = createBrowserRouter([
   {
@@ -40,22 +41,26 @@ export const routes = createBrowserRouter([
         element: <AllProduct></AllProduct>,
       },
       {
-        path:"/mycart",
-        element:<ShoppingCartDetails></ShoppingCartDetails>
+        path: "/mycart",
+        element: <ShoppingCartDetails></ShoppingCartDetails>,
       },
       {
         path: "/my-profile",
-        element: <UserDashboardLayout></UserDashboardLayout>,
-        errorElement:<ErrorPage></ErrorPage>,
+        element: (
+          <PrivateRoutes>
+            <UserDashboardLayout></UserDashboardLayout>
+          </PrivateRoutes>
+        ),
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
           {
             path: "/my-profile",
             element: <Profile></Profile>,
           },
           {
-            path:"/my-profile/order-history",
-            element:<OrderHistory></OrderHistory>
-          }
+            path: "/my-profile/order-history",
+            element: <OrderHistory></OrderHistory>,
+          },
         ],
       },
     ],
