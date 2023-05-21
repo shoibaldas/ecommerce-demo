@@ -6,19 +6,20 @@ import { UserContext } from "../hooks/AuthProvider/AuthProvider";
 const PrivateRoutes = ({ children }) => {
   const { user, loading } = useContext(UserContext);
   const location = useLocation();
+
   if (loading) {
     return (
-      <div>
-        <Loader></Loader>
+      <div className="h-screen flex items-center justify-center">
+        <Loader />
       </div>
     );
   }
 
-  if (user && user?.email) {
-    return children;
+  if (!user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  return <Navigate to={"/login"} state={{ from: location }} replace></Navigate>;
+  return children;
 };
 
 export default PrivateRoutes;

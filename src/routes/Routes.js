@@ -55,11 +55,19 @@ export const routes = createBrowserRouter([
         children: [
           {
             path: "/my-profile",
-            element: <Profile></Profile>,
+            element: (
+              <PrivateRoutes>
+                <Profile></Profile>
+              </PrivateRoutes>
+            ),
           },
           {
             path: "/my-profile/order-history",
-            element: <OrderHistory></OrderHistory>,
+            element: (
+              <PrivateRoutes>
+                <OrderHistory></OrderHistory>
+              </PrivateRoutes>
+            ),
           },
         ],
       },
