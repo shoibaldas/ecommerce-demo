@@ -9,11 +9,13 @@ import Profile from "../pages/Profile/Profile";
 import AllProduct from "../pages/AllProduct/AllProduct";
 import ShoppingCartDetails from "../pages/ShoppingCartDetails/ShoppingCartDetails";
 import OrderHistory from "../pages/OrderHistory/OrderHistory";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -44,6 +46,7 @@ export const routes = createBrowserRouter([
       {
         path: "/my-profile",
         element: <UserDashboardLayout></UserDashboardLayout>,
+        errorElement:<ErrorPage></ErrorPage>,
         children: [
           {
             path: "/my-profile",
