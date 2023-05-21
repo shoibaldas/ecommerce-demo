@@ -1,48 +1,91 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
+import { Cart } from "../../hooks/CartContext/CartContext";
+import Loader from "../../components/Loader/Loader";
 
 const ProductDetails = () => {
   const products = useLoaderData();
+  const { loading, setLoading } = useContext(Cart);
 
+  // const addToCart = () => {
+  //   const existingCart = localStorage.getItem("myCart");
+  //   const newItem = {
+  //     product: products,
+  //     quantity: 1,
+  //   };
+
+  //   if (existingCart) {
+  //     const cartItems = JSON.parse(existingCart);
+
+  //     const existingItemIndex = cartItems.findIndex(
+  //       (item) => item.product.id === newItem.product.id
+  //     );
+
+  //     if (existingItemIndex !== -1) {
+  //       cartItems[existingItemIndex].quantity += 1;
+  //     } else {
+  //       cartItems.push(newItem);
+  //     }
+
+  //     localStorage.setItem("myCart", JSON.stringify(cartItems));
+  //   } else {
+  //     const cartItems = [newItem];
+  //     localStorage.setItem("myCart", JSON.stringify(cartItems));
+  //   }
+
+  //   Swal.fire({
+  //     icon: "success",
+  //     title: "Your product added to cart successfully!",
+  //   });
+  //   setLoading(true);
+  // };
+  const [quantity, setQuantity] = useState(1);
   const addToCart = () => {
     const existingCart = localStorage.getItem("myCart");
+    const newItem = {
+      product: products,
+      quantity: quantity,
+    };
 
     if (existingCart) {
-      // If cart items exist then add a new item with a quantity of 1
       const cartItems = JSON.parse(existingCart);
-      const newItem = {
-        cart_id: generateUniqueId(),
-        product: products,
-        quantity: 1,
-      };
-      cartItems.push(newItem);
+
+      const existingItemIndex = cartItems.findIndex(
+        (item) => item.product.id === newItem.product.id
+      );
+
+      if (existingItemIndex !== -1) {
+        cartItems[existingItemIndex].quantity += quantity;
+      } else {
+        cartItems.push(newItem);
+      }
+
       localStorage.setItem("myCart", JSON.stringify(cartItems));
-      Swal.fire({
-        icon: "success",
-        title: "Your product added to cart Successfully!",
-      });
     } else {
-      const cartItems = [
-        {
-          cart_id: generateUniqueId(),
-          product: products,
-          quantity: 1,
-        },
-      ];
+      const cartItems = [newItem];
       localStorage.setItem("myCart", JSON.stringify(cartItems));
-      Swal.fire({
-        icon: "success",
-        title: "Your product added to cart Successfully!",
-      });
     }
+
+    Swal.fire({
+      icon: "success",
+      title: "Your product added to cart successfully!",
+    });
+    setLoading(true);
   };
 
-  //generating id with time stamp
-  const generateUniqueId = () => {
-    return Date.now().toString();
+  const handleQuantityChange = (e) => {
+    setQuantity(parseInt(e.target.value));
   };
+
+  if (loading) {
+    return (
+      <div className="h-screen mt-28">
+        <Loader></Loader>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen my-20  mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl p-12">
@@ -71,15 +114,18 @@ const ProductDetails = () => {
               Quantity:
             </label>
             <input
-              id="quantity"
               type="number"
               min="1"
               className="border rounded-md px-2 py-1 w-16 ml-2"
               defaultValue="1"
+              onChange={handleQuantityChange}
             />
           </div>
           <p className="text-gray-600 mb-4">{products.description}</p>
-          <button onClick={addToCart} className="bg-gray-700 hover:bg-black text-white py-2 px-4 rounded">
+          <button
+            onClick={addToCart}
+            className="bg-gray-700 hover:bg-black text-white py-2 px-4 rounded"
+          >
             Add to Cart
           </button>
         </div>

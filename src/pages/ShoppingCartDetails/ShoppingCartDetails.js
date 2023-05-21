@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { BiPlus, BiMinus } from "react-icons/bi";
 import { MdDeleteForever } from "react-icons/md";
 import { Cart } from "../../hooks/CartContext/CartContext";
@@ -10,11 +10,6 @@ const ShoppingCartDetails = () => {
   const { loading, shoppingCart, setLoading, setShoppingCart } =
     useContext(Cart);
   const { user } = useContext(UserContext);
-
-  //generating id with time stamp
-  const generateUniqueId = () => {
-    return Date.now().toString();
-  };
 
   //increase quantity
   const handleIncreaseQuantity = (productId) => {
@@ -72,23 +67,29 @@ const ShoppingCartDetails = () => {
     setLoading(true);
   };
 
-  const handleCheckout = () => {
-    const userEmail = user.email; // Assuming you have access to the user's email from the context data
+  //generating id with time stamp
+  const generateUniqueId = () => {
+    return Date.now().toString();
+  };
 
-    const orders = shoppingCart.map((item) => {
-      return {
-        order_id: generateUniqueId(), // Generate a unique order ID
+  //Checkingout shopping cart
+  const handleCheckout = () => {
+    const userEmail = user.email;
+
+    const order = {
+      order_id: generateUniqueId(), // Generate a unique order ID
+      items: shoppingCart.map((item) => ({
         title: item.product.title,
         quantity: item.quantity,
         subtotal: item.quantity * item.product.price,
-        userEmail: userEmail,
-      };
-    });
+      })),
+      userEmail: userEmail,
+    };
 
     const existingOrders = localStorage.getItem("myOrder");
     const parsedOrders = existingOrders ? JSON.parse(existingOrders) : [];
 
-    const updatedOrders = [...parsedOrders, ...orders];
+    const updatedOrders = [...parsedOrders, order];
 
     localStorage.setItem("myOrder", JSON.stringify(updatedOrders));
     localStorage.removeItem("myCart"); // Clear the "myCart" data
@@ -117,62 +118,6 @@ const ShoppingCartDetails = () => {
   return (
     <div className="h-screen p-8 my-28">
       <div className="border overflow-x-auto bg-white border-gray-400 shadow-lg rounded-lg container mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl p-12">
-        {/* <table className="table-auto w-full">
-          <thead>
-            <tr>
-              <th className="px-4 py-2">Image</th>
-              <th className="px-4 py-2">Product</th>
-              <th className="px-4 py-2">Price</th>
-              <th className="px-4 py-2">Quantity</th>
-              <th className="px-4 py-2">Subtotal</th>
-              <th className="px-4 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shoppingCart.map((item) => (
-              <tr key={item.product.id}>
-                <td className="px-4 py-2">
-                  <img
-                    src={item.product.image}
-                    alt={item.product.title}
-                    className="w-16 h-16 object-cover rounded-md"
-                  />
-                </td>
-                <td className="px-4 py-2">{item.product.title}</td>
-                <td className="px-4 py-2">${item.product.price}</td>
-                <td className="px-4 py-2 flex items-center">
-                  <button
-                    onClick={() => handleDecreaseQuantity(item.product.id)}
-                    className="p-2 border border-gray-300 mr-2 focus:outline-none focus:ring"
-                  >
-                    <BiMinus className="h-3 w-3" />
-                  </button>
-                  <span className="text-sm border px-3 py-1 bg-white border-gray-600 font-semibold">
-                    {item.quantity}
-                  </span>
-                  <button
-                    onClick={() => handleIncreaseQuantity(item.product.id)}
-                    className="p-2 border border-gray-300 ml-2 focus:outline-none focus:ring"
-                  >
-                    <BiPlus className="h-3 w-3" />
-                  </button>
-                </td>
-                <td className="px-4 py-2">
-                  ${(item.product.price * item.quantity).toFixed(2)}
-                </td>
-                <td className="px-4 py-2">
-                  <button
-                    onClick={() => handleDeleteItem(item.product.id)}
-                    className="p-2 focus:outline-none focus:ring"
-                  >
-                    <MdDeleteForever className="text-lg text-red-700"></MdDeleteForever>
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
-
         <table className="table-auto w-full">
           <thead>
             <tr>
