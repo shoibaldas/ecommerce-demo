@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 
 const Product = ({ products }) => {
   const { title, price, image, rating } = products;
-  console.log(products);
 
   const addToCart = () => {
     const existingCart = localStorage.getItem("myCart");
