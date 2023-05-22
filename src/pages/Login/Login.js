@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const { signIn, setSignIn } = useContext(UserContext);
+  const { signIn, setSignIn, user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleToggleShowPassword = () => setShowPassword(!showPassword);
@@ -20,6 +20,7 @@ const Login = () => {
 
     const errors = {};
 
+    //validation check
     if (!email.trim()) {
       errors["email"] = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(email)) {
@@ -38,18 +39,17 @@ const Login = () => {
       });
       return;
     }
-    // Retrieve user credentials from local storage
-    const storedCredentials = JSON.parse(localStorage.getItem("user"));
-    const storedEmail = storedCredentials.email;
-    const storedPassword = storedCredentials.password;
-    console.log(storedEmail);
-    console.log(storedPassword);
 
-    if (!storedEmail || !storedPassword) {
+    if (!user) {
       // No user exists
-      setErrorMessage('No user exists!');
+      setErrorMessage("No user exists!");
       return;
     }
+
+    // Retrieve user credentials from local storage
+    const storedCredentials = JSON.parse(localStorage.getItem("user"));
+    const storedEmail = storedCredentials?.email;
+    const storedPassword = storedCredentials?.password;
 
     if (email === storedEmail && password === storedPassword) {
       // Successful login

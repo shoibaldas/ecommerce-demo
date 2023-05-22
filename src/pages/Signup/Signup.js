@@ -18,6 +18,7 @@ const Signup = () => {
   const handleRegister = (e) => {
     e.preventDefault();
 
+    //validation check
     const errors = {};
     if (!firstName.trim()) {
       errors["firstName"] = "First name is required";
