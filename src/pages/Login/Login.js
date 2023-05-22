@@ -10,7 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
-  const { signIn, setSignIn, user } = useContext(UserContext);
+  const { signIn, setSignIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleToggleShowPassword = () => setShowPassword(!showPassword);
@@ -40,16 +40,17 @@ const Login = () => {
       return;
     }
 
-    if (!user) {
+    // Retrieve user credentials from local storage
+    const storedCredentials = JSON.parse(localStorage.getItem("user"));
+
+    const storedEmail = storedCredentials?.email;
+    const storedPassword = storedCredentials?.password;
+
+    if (!storedEmail || !storedPassword) {
       // No user exists
       setErrorMessage("No user exists!");
       return;
     }
-
-    // Retrieve user credentials from local storage
-    const storedCredentials = JSON.parse(localStorage.getItem("user"));
-    const storedEmail = storedCredentials?.email;
-    const storedPassword = storedCredentials?.password;
 
     if (email === storedEmail && password === storedPassword) {
       // Successful login
